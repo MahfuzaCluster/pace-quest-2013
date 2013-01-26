@@ -1,5 +1,9 @@
 package com.example.hearttest;
 
+import android.app.Activity;
+import android.util.Log;
+import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 enum qnames
@@ -7,7 +11,7 @@ enum qnames
 	UpBeat,
 	SuperUp,
 	FullOut,
-	
+	No_Quest
 }
 
 public abstract class Quests {
@@ -27,14 +31,21 @@ public abstract class Quests {
 	
 	public static long GetXPForQuest(qnames id, float difficulty)
 	{
+		long xp = 0; 
 		switch(id)
 		{
 		case UpBeat:
-			return (long) (400 * difficulty * general_multiplier);
+			xp = (long) (400.f * difficulty * general_multiplier);
+			Log.i("Quests", "400.f * " + difficulty + " * " + general_multiplier + " = " + xp );
+			return xp;
 		case SuperUp:
-			return (long) (600 * difficulty * general_multiplier);
+			xp = (long) (600.f * difficulty * general_multiplier);
+			Log.i("Quests", "600.f * " + difficulty + " * " + general_multiplier + " = " + xp );
+			return xp;
 		case FullOut:
-			return (long) (1000 * difficulty * general_multiplier);
+			xp = (long) (1000.f * difficulty * general_multiplier);
+			Log.i("Quests", "1000.f * " + difficulty + " * " + general_multiplier + " = " + xp );
+			return xp;
 		}
 		
 		return 0;
@@ -52,7 +63,7 @@ public abstract class Quests {
 			return "Nuclear Blast!";
 		}
 		
-		return "null";
+		return "";
 	}
 	
 	public static String GetQuestDescription(qnames id, float difficulty)
@@ -60,14 +71,14 @@ public abstract class Quests {
 		switch(id)
 		{
 		case UpBeat:
-			return "Raise beats per minute above " + HeartRateMonitor.Current_Player.avg_rest_pulse * 1.30 + ((difficulty - 1.f) * 0.5f) + " for 60 seconds.";
+			return "Raise beats per minute above " + (HeartRateMonitor.Current_Player.avg_rest_pulse * 1.30 + ((difficulty - 1.f) * 0.5f)) + " for 60 seconds.";
 		case SuperUp:
-			return "Raise your beat above " + HeartRateMonitor.Current_Player.avg_rest_pulse * 1.20 + ((difficulty - 1.f) * 0.5f) + " for two minutes";		
+			return "Raise your beat above " + (HeartRateMonitor.Current_Player.avg_rest_pulse * 1.20 + ((difficulty - 1.f) * 0.5f)) + " for two minutes";		
 		case FullOut:
-			return "Raise your beat above " + HeartRateMonitor.Current_Player.avg_rest_pulse * 1.60 + ((difficulty - 1.f) * 0.5f) + " for 60 seconds";	
+			return "Raise your beat above " + (HeartRateMonitor.Current_Player.avg_rest_pulse * 1.60 + ((difficulty - 1.f) * 0.5f)) + " for 60 seconds";	
 		}
 		
-		return "null";		
+		return "";		
 	}
 	
 	public static void GetNewQuest()
@@ -75,7 +86,8 @@ public abstract class Quests {
 		Player p = HeartRateMonitor.Current_Player;
 		p.current_quest = qnames.values()[(int) (Math.random() * 3)];	
 		
-		//TODO: Update description
+		TextView description = (TextView)((Activity)(HeartRateMonitor.Application_Context)).findViewById(R.id.textView1);
+		description.setText(Quests.GetQuestDescription(HeartRateMonitor.Current_Player.current_quest, HeartRateMonitor.Current_Player.current_difficulty));
 	}
 	
 	public static float UpdateQuest(qnames id, float difficulty, float current_progress, float seconds)
@@ -86,17 +98,20 @@ public abstract class Quests {
 		switch(id)
 		{
 		case UpBeat:
-			bar = (float) (p.avg_rest_pulse * 1.30 + ((difficulty - 1.f) * 0.5f));
+			bar = (float) ((float)p.avg_rest_pulse * 1.30 + ((difficulty - 1.f) * 0.5f));
 			if(bar <= p.current_pulse)
-				progress = current_progress + seconds / 60;	
+				progress = current_progress + seconds / 60.f;	
+			Log.i("Quests", "bar is " + bar + " and seconds were " + seconds);
 		case SuperUp:
-			bar = (float) (p.avg_rest_pulse * 1.20 + ((difficulty - 1.f) * 0.5f));
+			bar = (float) ((float)p.avg_rest_pulse * 1.20 + ((difficulty - 1.f) * 0.5f));
 			if(bar <= p.current_pulse)
-				progress = current_progress + seconds / 120;
+				progress = current_progress + seconds / 120.f;
+			Log.i("Quests", "bar is " + bar + " and seconds were " + seconds);
 		case FullOut:
-			bar = (float) (p.avg_rest_pulse * 1.60 + ((difficulty - 1.f) * 0.5f));
+			bar = (float) ((float)p.avg_rest_pulse * 1.60 + ((difficulty - 1.f) * 0.5f));
 			if(bar <= p.current_pulse)
-				progress = current_progress + seconds / 60;
+				progress = current_progress + seconds / 60.f;
+			Log.i("Quests", "bar is " + bar + " and seconds were " + seconds);
 		}
 		if(progress >= 1)
 		{

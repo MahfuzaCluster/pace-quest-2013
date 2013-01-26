@@ -51,7 +51,9 @@
 		    android:id="@+id/progressBar1"
 		    style="?android:attr/progressBarStyleHorizontal"
 		    android:layout_width="match_parent"
-		    android:layout_height="wrap_content" />
+		    android:layout_height="wrap_content"
+		    android:max="100"
+		    android:progress="0" />
 
 	</LinearLayout>
 
@@ -71,6 +73,15 @@
 		    android:id="@+id/surfaceView1"
 		    android:layout_width="1dp"
 		    android:layout_height="1dp" />
+
+		<ProgressBar
+		    android:id="@+id/progressBar2"
+		    style="?android:attr/progressBarStyleHorizontal"
+		    android:layout_width="fill_parent"
+		    android:layout_height="wrap_content"
+		    android:layout_gravity="bottom"
+		    android:max="100"
+		    android:progress="0" />
 
 	</LinearLayout>
 	
