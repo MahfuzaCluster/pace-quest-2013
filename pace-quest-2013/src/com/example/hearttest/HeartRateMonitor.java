@@ -1,5 +1,8 @@
 package com.example.hearttest;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.LinkedList;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import android.app.Activity;
@@ -10,6 +13,7 @@ import android.hardware.Camera.PreviewCallback;
 import android.os.Bundle;
 import android.os.PowerManager;
 import android.os.PowerManager.WakeLock;
+import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -55,6 +59,11 @@ public class HeartRateMonitor extends Activity {
     private static final int[] beatsArray = new int[beatsArraySize];
     private static double beats = 0;
     private static long startTime = 0;
+    private static long firstTime = 0;
+    private static long samplePeriod = 10000;
+    private static long lastTimeShown = 0;
+    
+    private static LinkedList<Long> beatTimingQueue;
 
     /**
      * {@inheritDoc}
@@ -74,6 +83,8 @@ public class HeartRateMonitor extends Activity {
 
         PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
         wakeLock = pm.newWakeLock(PowerManager.FULL_WAKE_LOCK, "DoNotDimScreen");
+        
+        beatTimingQueue = new LinkedList<Long>();
     }
 
     /**
@@ -150,7 +161,15 @@ public class HeartRateMonitor extends Activity {
             if (imgAvg < rollingAverage) {
                 newType = TYPE.RED;
                 if (newType != currentType) {
-                    beats++;
+                    //beats++;
+                	if(System.currentTimeMillis() - firstTime > samplePeriod)
+                		firstTime = Math.max(System.currentTimeMillis() - samplePeriod, firstTime);
+                    beatTimingQueue.add(System.currentTimeMillis());
+                    
+                    SimpleDateFormat sdfDate = new SimpleDateFormat("HH:mm:ss.SSS");//dd/MM/yyyy
+                    Date now = new Date();
+                    String strDate = sdfDate.format(now);
+                    Log.i(TAG, "Beat at " + strDate);
                     // Log.d(TAG, "BEAT!! beats="+beats);
                 }
             } else if (imgAvg > rollingAverage) {
@@ -168,7 +187,31 @@ public class HeartRateMonitor extends Activity {
             }
 
             long endTime = System.currentTimeMillis();
-            double totalTimeInSecs = (endTime - startTime) / 1000d;
+            
+            while(beatTimingQueue.size() > 0 && endTime - beatTimingQueue.peek() > samplePeriod)
+            {
+            	beatTimingQueue.pop();
+            }
+        	if(beatTimingQueue.size() > 0)            	
+        		firstTime = beatTimingQueue.peek();            	
+        	else
+        		firstTime = System.currentTimeMillis();
+            double totalTimeInSecs = (endTime - firstTime) / 1000d;
+            double bps = (beatTimingQueue.size() / totalTimeInSecs);
+            int dpm = (int) (bps * 60d);
+            if (dpm < 10 || dpm > 180 || totalTimeInSecs < (samplePeriod/ 1000d)/2) {
+                //startTime = System.currentTimeMillis();                
+                processing.set(false);
+                return;
+            }
+            if((System.currentTimeMillis() - lastTimeShown) / 1000d > 1)
+            {
+	            lastTimeShown = System.currentTimeMillis();
+	            text.setText(String.valueOf(dpm));
+            }
+            //startTime = System.currentTimeMillis();
+            //beats = 0;
+            /*double totalTimeInSecs = (endTime - startTime) / 1000d;
             if (totalTimeInSecs >= 10) {
                 double bps = (beats / totalTimeInSecs);
                 int dpm = (int) (bps * 60d);
@@ -198,7 +241,7 @@ public class HeartRateMonitor extends Activity {
                 text.setText(String.valueOf(beatsAvg));
                 startTime = System.currentTimeMillis();
                 beats = 0;
-            }
+            }*/
             processing.set(false);
         }
     };
