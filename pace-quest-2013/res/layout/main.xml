@@ -1,15 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-	android:orientation="vertical" 
-	android:layout_width="fill_parent"
-	android:layout_height="fill_parent" 
-	android:id="@+id/layout">
-	<LinearLayout android:id="@+id/top"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
-        android:orientation="horizontal" 
-        android:layout_width="fill_parent"
-        android:layout_height="50dp">
+    android:id="@+id/layout"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/bg"
+    android:orientation="vertical" >
+
+	<LinearLayout
+	    android:id="@+id/top"
+	    android:layout_width="fill_parent"
+	    android:layout_height="50dp"
+	    android:background="@drawable/heartratenumber_heartrategraphic"
+	    android:orientation="horizontal"
+	    android:paddingLeft="10dp"
+	    android:paddingRight="10dp" >
+
         <TextView android:id="@+id/text"
             android:text="@string/default_text"
             android:textSize="32dp"
@@ -27,9 +32,54 @@
 		    </com.example.hearttest.HeartbeatView>
 	    </RelativeLayout>
     </LinearLayout>
-	<SurfaceView android:id="@+id/preview"
-        android:layout_weight="1" 
-		android:layout_width="fill_parent"
-		android:layout_height="0dp">
-	</SurfaceView>
+
+	<LinearLayout
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:orientation="vertical"
+	    android:paddingTop="15dp" >
+
+		<Button
+		    android:id="@+id/button1"
+		    android:layout_width="wrap_content"
+		    android:layout_height="45dp"
+		    android:autoText="true"
+		    android:background="@drawable/lvlbuttonbase"
+		    android:text="Button"
+		    android:textSize="25sp" />
+
+		<ProgressBar
+		    android:id="@+id/progressBar1"
+		    style="?android:attr/progressBarStyleHorizontal"
+		    android:layout_width="match_parent"
+		    android:layout_height="wrap_content" />
+
+	</LinearLayout>
+
+	<LinearLayout
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:background="@drawable/menubg"
+	    android:orientation="vertical"
+	    android:padding="30dp" >
+
+		<TextView
+		    android:id="@+id/textView1"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:text="Large Text"
+		    android:textAppearance="?android:attr/textAppearanceLarge" />
+
+	<LinearLayout
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content">
+		<SurfaceView android:id="@+id/preview"
+	        android:layout_weight="1" 
+			android:layout_width="fill_parent"
+			android:layout_height="0dp">
+		</SurfaceView>
+	</LinearLayout>
+	</LinearLayout>
+	
+	
 </LinearLayout>
