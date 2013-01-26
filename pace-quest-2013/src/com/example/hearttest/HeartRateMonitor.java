@@ -37,6 +37,8 @@ public class HeartRateMonitor extends Activity {
     private static View image = null;
     private static TextView text = null;
     private static ProgressBar pBar = null;
+    private static ProgressBar qBar = null;
+    private static TextView description = null;
 
     private static WakeLock wakeLock = null;
 
@@ -99,11 +101,12 @@ public class HeartRateMonitor extends Activity {
         previewHolder = preview.getHolder();
         previewHolder.addCallback(surfaceCallback);
         previewHolder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
-
         image = findViewById(R.id.image);
         text = (TextView) findViewById(R.id.text); 
         pBar = (ProgressBar) findViewById(R.id.progressBar1);
-
+        qBar = (ProgressBar) findViewById(R.id.progressBar2);
+        description = (TextView) findViewById(R.id.textView1);
+        	
         PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
         wakeLock = pm.newWakeLock(PowerManager.FULL_WAKE_LOCK, "DoNotDimScreen");
         
@@ -141,6 +144,12 @@ public class HeartRateMonitor extends Activity {
         camera = Camera.open();
 
         startTime = System.currentTimeMillis();
+        if(HeartRateMonitor.Current_Player.current_quest == qnames.No_Quest)
+        	Quests.GetNewQuest();
+        qnames q = HeartRateMonitor.Current_Player.current_quest;
+        float d = HeartRateMonitor.Current_Player.current_difficulty;
+        String dsc = Quests.GetQuestDescription(q, d);
+        description.setText(dsc);
     }
 
     /**
@@ -246,9 +255,14 @@ public class HeartRateMonitor extends Activity {
             Player p = HeartRateMonitor.Current_Player;
             HeartRateMonitor.Current_Player.current_pulse = dpm;
             if(quest_timer > 0)
-            	p.current_progress = Quests.UpdateQuest(p.current_quest, p.current_difficulty, p.current_progress, (System.currentTimeMillis() - quest_timer) / 1000);
+            	p.current_progress = Quests.UpdateQuest(p.current_quest, p.current_difficulty, p.current_progress, (System.currentTimeMillis() - quest_timer) / 1000.f);
             quest_timer = System.currentTimeMillis();
-            pBar.setProgress(p.xp / p.GetNextLevelRequirement() * pBar.getMax());
+            int pBar_val = (int) ((float)p.xp / (float)p.GetNextLevelRequirement() * (float)pBar.getMax());
+            //Log.i(TAG, "Xp Bar should have " + pBar_val + " percent");
+            pBar.setProgress(pBar_val);            
+            int qBar_val =(int) (p.current_progress * 100);
+            //Log.i(TAG, "Quest Bar should have " + qBar_val + " percent");
+            qBar.setProgress(qBar_val);
             
             //startTime = System.currentTimeMillis();
             //beats = 0;

@@ -2,6 +2,7 @@ package com.example.hearttest;
 
 import java.util.List;
 
+import android.util.Log;
 import android.widget.Toast;
 
 
@@ -32,8 +33,9 @@ public class Player {
 		skills = skills - val;
 		abi_intelligence = 6 + skills;
 		xp = 0;
-		level = 0;
-		avg_rest_pulse = 80;
+		level = 1;
+		avg_rest_pulse = 1;
+		current_quest = qnames.No_Quest;
 	}
 	
 	public void GrantItem()
@@ -48,12 +50,12 @@ public class Player {
 	
 	public void GiveXp(long amount)
 	{
-		 amount = amount + xp;
-		 
+		xp = amount + xp;
+		Log.i("Player", amount + " xp gained, total amount now " + xp); 
 		 long next_level = GetNextLevelRequirement();
-		 while(amount >= next_level)
+		 while(xp >= next_level)
 		 {
-			 amount -= next_level;
+			 xp -= next_level;
 			 level++;
 			 Toast a = Toast.makeText(HeartRateMonitor.Application_Context, "Level up!", Toast.LENGTH_SHORT);
 			 a.show();
