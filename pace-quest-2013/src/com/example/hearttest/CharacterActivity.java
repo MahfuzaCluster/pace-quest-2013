@@ -14,12 +14,12 @@ public class CharacterActivity extends Activity {
 	        super.onCreate(savedInstanceState);
 	        setContentView(R.layout.character);
 	 }
-	// public void onResume (){
-	//	 MediaPlayer mediaPlayer;
-	//		final Handler handler = new Handler();
+	 public void onResume (){
+		 MediaPlayer mediaPlayer;
+			final Handler handler = new Handler();
 		//	private void initViews() {
-	//		mediaPlayer = MediaPlayer.create(this, R.raw.eightbitmusic);
-	// }
+			mediaPlayer = MediaPlayer.create(this, R.raw.eightbitmusic);
+	 }
 	 
 	 }
 

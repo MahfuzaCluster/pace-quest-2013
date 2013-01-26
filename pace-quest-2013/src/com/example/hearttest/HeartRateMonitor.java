@@ -9,6 +9,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.graphics.Typeface;
 import android.hardware.Camera;
 import android.hardware.Camera.PreviewCallback;
 import android.os.Bundle;
@@ -83,7 +84,9 @@ public class HeartRateMonitor extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
-
+        Button enter=(Button) findViewById(R.id.button1);
+        Typeface type=Typeface.createFromAsset(getAssets(), "heart_heaven.ttf");
+        enter.setTypeface(type);
         preview = (SurfaceView) findViewById(R.id.surfaceView1);
         previewHolder = preview.getHolder();
         previewHolder.addCallback(surfaceCallback);
