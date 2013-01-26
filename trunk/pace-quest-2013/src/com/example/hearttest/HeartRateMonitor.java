@@ -22,6 +22,7 @@ import android.view.SurfaceView;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.media.MediaPlayer;
 public class HeartRateMonitor extends Activity {
@@ -35,6 +36,7 @@ public class HeartRateMonitor extends Activity {
     private static Camera camera = null;
     private static View image = null;
     private static TextView text = null;
+    private static ProgressBar pBar = null;
 
     private static WakeLock wakeLock = null;
 
@@ -100,6 +102,7 @@ public class HeartRateMonitor extends Activity {
 
         image = findViewById(R.id.image);
         text = (TextView) findViewById(R.id.text); 
+        pBar = (ProgressBar) findViewById(R.id.progressBar1);
 
         PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
         wakeLock = pm.newWakeLock(PowerManager.FULL_WAKE_LOCK, "DoNotDimScreen");
@@ -245,6 +248,8 @@ public class HeartRateMonitor extends Activity {
             if(quest_timer > 0)
             	p.current_progress = Quests.UpdateQuest(p.current_quest, p.current_difficulty, p.current_progress, (System.currentTimeMillis() - quest_timer) / 1000);
             quest_timer = System.currentTimeMillis();
+            pBar.setProgress(p.xp / p.GetNextLevelRequirement() * pBar.getMax());
+            
             //startTime = System.currentTimeMillis();
             //beats = 0;
             /*double totalTimeInSecs = (endTime - startTime) / 1000d;
