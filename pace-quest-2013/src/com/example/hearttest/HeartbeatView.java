@@ -1,13 +1,18 @@
 package com.example.hearttest;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Matrix;
 import android.graphics.Paint;
+import android.net.Uri;
 import android.util.AttributeSet;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 
 
 /**
@@ -28,9 +33,9 @@ public class HeartbeatView extends View {
 
     public HeartbeatView(Context context, AttributeSet attr) {
         super(context, attr);
-
         greenBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.green_icon);
         redBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.red_icon);
+        
     }
 
     public HeartbeatView(Context context) {
@@ -60,6 +65,8 @@ public class HeartbeatView extends View {
         if (canvas == null) throw new NullPointerException();
 
         Bitmap bitmap = null;
+        if(bitmap == null)
+        	return;
         if (HeartRateMonitor.getCurrent() == HeartRateMonitor.TYPE.GREEN) bitmap = greenBitmap;
         else bitmap = redBitmap;
 

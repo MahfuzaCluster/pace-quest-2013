@@ -7,6 +7,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.hardware.Camera;
 import android.hardware.Camera.PreviewCallback;
@@ -18,6 +19,8 @@ import android.util.Log;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.TextView;
 
 public class HeartRateMonitor extends Activity {
@@ -66,7 +69,7 @@ public class HeartRateMonitor extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
 
-        preview = (SurfaceView) findViewById(R.id.preview);
+        preview = (SurfaceView) findViewById(R.id.surfaceView1);
         previewHolder = preview.getHolder();
         previewHolder.addCallback(surfaceCallback);
         previewHolder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
@@ -78,6 +81,16 @@ public class HeartRateMonitor extends Activity {
         wakeLock = pm.newWakeLock(PowerManager.FULL_WAKE_LOCK, "DoNotDimScreen");
         
         beatTimingQueue = new LinkedList<Long>();
+        
+        Button btn = (Button)findViewById(R.id.button1);
+        btn.setOnClickListener(new OnClickListener() {
+        	   @Override
+        	   public void onClick(View v) {
+        	      Intent i = new Intent(getApplicationContext(),CharacterActivity.class);
+        	      i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        	      getApplicationContext().startActivity(i);
+        	   }
+        	  });
     }
 
     /**
