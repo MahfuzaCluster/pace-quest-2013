@@ -61,6 +61,9 @@ public class HeartRateMonitor extends Activity {
     private static long samplePeriod = 10000;
     private static long lastTimeShown = 0;
     
+    public static Context Application_Context;
+    public static Player Current_Player;
+    
     private static LinkedList<Long> beatTimingQueue;
 
     /**
@@ -84,6 +87,8 @@ public class HeartRateMonitor extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
+        Current_Player = new Player("Default");
+        Application_Context = this;
         Button enter=(Button) findViewById(R.id.button1);
         Typeface type=Typeface.createFromAsset(getAssets(), "heart_heaven.ttf");
         enter.setTypeface(type);
