@@ -22,11 +22,12 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
-
+import android.media.MediaPlayer;
 public class HeartRateMonitor extends Activity {
 
     private static final String TAG = "HeartRateMonitor";
     private static final AtomicBoolean processing = new AtomicBoolean(false);
+    private MediaPlayer mp = null;
 
     private static SurfaceView preview = null;
     private static SurfaceHolder previewHolder = null;
@@ -64,7 +65,21 @@ public class HeartRateMonitor extends Activity {
     /**
      * {@inheritDoc}
      */
-    @Override
+    private void playSound(int sFile)
+        {
+         //set up MediaPlayer   
+         final int medFile = sFile;
+             
+          Thread thread = new Thread(new Runnable()       {
+                
+          public void run() {
+          mp = MediaPlayer.create(getApplicationContext(), medFile);
+          mp.start();
+          }
+          });
+          thread.start();
+              
+        }
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
@@ -83,9 +98,11 @@ public class HeartRateMonitor extends Activity {
         beatTimingQueue = new LinkedList<Long>();
         
         Button btn = (Button)findViewById(R.id.button1);
+        Button btnSound = (Button)this.findViewById(R.id.button1);
         btn.setOnClickListener(new OnClickListener() {
         	   @Override
         	   public void onClick(View v) {
+        		   playSound(R.raw.clicksound);
         	      Intent i = new Intent(getApplicationContext(),CharacterActivity.class);
         	      i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         	      getApplicationContext().startActivity(i);
