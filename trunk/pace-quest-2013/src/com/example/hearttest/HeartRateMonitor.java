@@ -20,13 +20,6 @@ import android.view.SurfaceView;
 import android.view.View;
 import android.widget.TextView;
 
-
-/**
- * This class extends Activity to handle a picture preview, process the preview
- * for a red values and determine a heart beat.
- * 
- * @author Justin Wetherell <phishman3579@gmail.com>
- */
 public class HeartRateMonitor extends Activity {
 
     private static final String TAG = "HeartRateMonitor";
@@ -79,7 +72,7 @@ public class HeartRateMonitor extends Activity {
         previewHolder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
 
         image = findViewById(R.id.image);
-        text = (TextView) findViewById(R.id.text);
+        text = (TextView) findViewById(R.id.text); 
 
         PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
         wakeLock = pm.newWakeLock(PowerManager.FULL_WAKE_LOCK, "DoNotDimScreen");
