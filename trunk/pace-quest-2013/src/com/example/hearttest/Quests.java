@@ -20,11 +20,12 @@ public abstract class Quests {
 	{
 		Toast t = Toast.makeText(HeartRateMonitor.Application_Context, "Quest Complete!", Toast.LENGTH_SHORT);
 		
-		if(difficulty > 1)
+		if(difficulty > 1.f)
 		{
 			if(difficulty * 10 + Math.random()*10 > 15)
 				HeartRateMonitor.Current_Player.GrantItem();
 		}
+		Log.i("Quests", "Quest completed, giving xp for " + id + " at difficulty " + difficulty);
 		HeartRateMonitor.Current_Player.GiveXp(GetXPForQuest(id, difficulty));
 		t.show();
 	}
@@ -47,7 +48,8 @@ public abstract class Quests {
 			Log.i("Quests", "1000.f * " + difficulty + " * " + general_multiplier + " = " + xp );
 			return xp;
 		}
-		
+
+		Log.i("Quests", "Quest not recognized.");
 		return 0;
 	}
 	
@@ -84,7 +86,8 @@ public abstract class Quests {
 	public static void GetNewQuest()
 	{
 		Player p = HeartRateMonitor.Current_Player;
-		p.current_quest = qnames.values()[(int) (Math.random() * 3)];	
+		p.current_quest = qnames.values()[(int) (Math.random() * 3)];
+		p.current_difficulty = (float) (Math.random() * 0.2f + 0.9f);
 		
 		TextView description = (TextView)((Activity)(HeartRateMonitor.Application_Context)).findViewById(R.id.textView1);
 		description.setText(Quests.GetQuestDescription(HeartRateMonitor.Current_Player.current_quest, HeartRateMonitor.Current_Player.current_difficulty));
@@ -98,17 +101,17 @@ public abstract class Quests {
 		switch(id)
 		{
 		case UpBeat:
-			bar = (float) ((float)p.avg_rest_pulse * 1.30 + ((difficulty - 1.f) * 0.5f));
+			bar = (float) ((float)p.avg_rest_pulse * 1.30f + ((difficulty - 1.f) * 0.5f));
 			if(bar <= p.current_pulse)
 				progress = current_progress + seconds / 60.f;	
 			Log.i("Quests", "bar is " + bar + " and seconds were " + seconds);
 		case SuperUp:
-			bar = (float) ((float)p.avg_rest_pulse * 1.20 + ((difficulty - 1.f) * 0.5f));
+			bar = (float) ((float)p.avg_rest_pulse * 1.20f + ((difficulty - 1.f) * 0.5f));
 			if(bar <= p.current_pulse)
 				progress = current_progress + seconds / 120.f;
 			Log.i("Quests", "bar is " + bar + " and seconds were " + seconds);
 		case FullOut:
-			bar = (float) ((float)p.avg_rest_pulse * 1.60 + ((difficulty - 1.f) * 0.5f));
+			bar = (float) ((float)p.avg_rest_pulse * 1.60f + ((difficulty - 1.f) * 0.5f));
 			if(bar <= p.current_pulse)
 				progress = current_progress + seconds / 60.f;
 			Log.i("Quests", "bar is " + bar + " and seconds were " + seconds);

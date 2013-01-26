@@ -18,7 +18,7 @@ public class Player {
 	public qnames current_quest;
 	public long avg_rest_pulse;
 	public long current_pulse;
-	public long current_difficulty;
+	public float current_difficulty;
 	public float current_progress;
 	
 	public Player(String name)
@@ -35,6 +35,7 @@ public class Player {
 		xp = 0;
 		level = 1;
 		avg_rest_pulse = 1;
+		current_difficulty = 1.f;
 		current_quest = qnames.No_Quest;
 	}
 	
