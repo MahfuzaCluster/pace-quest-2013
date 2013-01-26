@@ -98,7 +98,6 @@ public class HeartRateMonitor extends Activity {
         beatTimingQueue = new LinkedList<Long>();
         
         Button btn = (Button)findViewById(R.id.button1);
-        Button btnSound = (Button)this.findViewById(R.id.button1);
         btn.setOnClickListener(new OnClickListener() {
         	   @Override
         	   public void onClick(View v) {
