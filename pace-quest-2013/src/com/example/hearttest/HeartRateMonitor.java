@@ -60,6 +60,7 @@ public class HeartRateMonitor extends Activity {
     private static long firstTime = 0;
     private static long samplePeriod = 10000;
     private static long lastTimeShown = 0;
+    private static long quest_timer = 0;
     
     public static Context Application_Context;
     public static Player Current_Player;
@@ -239,6 +240,11 @@ public class HeartRateMonitor extends Activity {
 	            lastTimeShown = System.currentTimeMillis();
 	            text.setText(String.valueOf(dpm));
             }
+            Player p = HeartRateMonitor.Current_Player;
+            HeartRateMonitor.Current_Player.current_pulse = dpm;
+            if(quest_timer > 0)
+            	p.current_progress = Quests.UpdateQuest(p.current_quest, p.current_difficulty, p.current_progress, (System.currentTimeMillis() - quest_timer) / 1000);
+            quest_timer = System.currentTimeMillis();
             //startTime = System.currentTimeMillis();
             //beats = 0;
             /*double totalTimeInSecs = (endTime - startTime) / 1000d;
