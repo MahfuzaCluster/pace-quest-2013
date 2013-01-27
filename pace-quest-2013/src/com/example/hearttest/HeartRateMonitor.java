@@ -92,8 +92,8 @@ public class HeartRateMonitor extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
-        Current_Player = new Player("Default");
         Application_Context = this;
+        Current_Player = new Player("Default");
         Button enter=(Button) findViewById(R.id.button1);
         Typeface type=Typeface.createFromAsset(getAssets(), "heart_heaven.ttf");
         enter.setTypeface(type);
@@ -321,6 +321,8 @@ public class HeartRateMonitor extends Activity {
          */
         @Override
         public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
+        	if(camera == null)
+        		return;
             Camera.Parameters parameters = camera.getParameters();
             parameters.setFlashMode(Camera.Parameters.FLASH_MODE_TORCH);
             Camera.Size size = getSmallestPreviewSize(width, height, parameters);

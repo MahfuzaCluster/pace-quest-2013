@@ -1,4 +1,5 @@
-package com.example.hearttest;
+
+/*package com.example.hearttest;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -22,35 +23,6 @@ public class Character implements Serializable {
 	public float current_progress;
 
 	
-		private void writeObject(ObjectOutputStream out) throws IOException{
-
-		    out.writeLong(xp);
-		    out.writeLong(level);
-		    out.writeLong(money);
-		    out.writeLong(avg_rest_pulse);
-		    out.writeLong(current_pulse);
-		    out.writeLong(current_difficulty);
-		    out.writeFloat(current_progress);
-		    out.writeObject(name);
-		    out.writeObject(current_quest);
-		    out.writeObject(items);
-
-		}
-
-		private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException{
-
-		    xp=in.readLong();
-		    level=in.readLong();
-		    money=in.readLong();
-		    avg_rest_pulse=in.readLong();
-		    current_pulse=in.readLong();
-		    current_difficulty=in.readLong();
-
-		    current_progress=(Float) in.readObject();
-		    name=(String) in.readObject();
-		    current_quest=(qnames) in.readObject();
-		    items=(List<String>) in.readObject();
-		    
-}
 		
 }
+*/

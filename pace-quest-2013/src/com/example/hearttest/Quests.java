@@ -28,6 +28,8 @@ public abstract class Quests {
 		Log.i("Quests", "Quest completed, giving xp for " + id + " at difficulty " + difficulty);
 		HeartRateMonitor.Current_Player.GiveXp(GetXPForQuest(id, difficulty));
 		t.show();
+
+		HeartRateMonitor.Current_Player.Save("player.dat");
 	}
 	
 	public static long GetXPForQuest(qnames id, float difficulty)
@@ -121,6 +123,7 @@ public abstract class Quests {
 			CompleteQuest(id, difficulty);
 			progress = 0;
 		}
+
 		return progress;		
 	}
 }
