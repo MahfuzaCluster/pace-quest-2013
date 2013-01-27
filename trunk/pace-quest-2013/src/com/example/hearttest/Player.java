@@ -189,8 +189,9 @@ public class Player {
 	
 	public void GrantItem()
 	{
-		String[] pref = {"Copper","Steel","Thermo","Bazalt","Kinetic","Quantum","Hyper","Laser","Argentum","Z-Type"};
-		String[] item = {"Knife","Hat","Lens","Armor","Generator","Rifle","Jumper","Kit","Digitizer","Helmet","Visor","Scope","Boots","Vest","Cloak","Container"};
+		String[] pref = {"Copper","Steel","Thermo","Bazalt","Kinetic","Quantum","Hyper","Laser","Argentum","Z-Type","Chocolate Covered", "Fluffy", "Deadly","Cursed","Explosive","Slimy"};
+		String[] item = {"Spatula","Knife","Hat","Lens","Armor","Generator","Rifle","Jumper","Kit","Digitizer","Helmet","Visor","Scope","Boots","Vest","Cloak","Container","Gloves"
+				,"Shrooms","Lawnmower","Bottle"};
 		
 		String itm = pref[(int) (Math.random()*pref.length)] + " " +  item[(int) (Math.random()*item.length)];
 		items.add(itm);
