@@ -31,6 +31,7 @@ public class HeartRateMonitor extends Activity {
     private static final AtomicBoolean processing = new AtomicBoolean(false);
     private MediaPlayer mp = null;
 
+    private static Button charButton = null;
     private static SurfaceView preview = null;
     private static SurfaceHolder previewHolder = null;
     private static Camera camera = null;
@@ -93,8 +94,9 @@ public class HeartRateMonitor extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
         Application_Context = this;
-        Current_Player = new Player("Default");
-        Button enter=(Button) findViewById(R.id.button1);
+        if(Current_Player == null)
+        	Current_Player = new Player("Default");
+        Button enter=(Button) findViewById(R.id.charButton);
         Typeface type=Typeface.createFromAsset(getAssets(), "heart_heaven.ttf");
         enter.setTypeface(type);
         preview = (SurfaceView) findViewById(R.id.surfaceView1);
@@ -106,13 +108,14 @@ public class HeartRateMonitor extends Activity {
         pBar = (ProgressBar) findViewById(R.id.progressBar1);
         qBar = (ProgressBar) findViewById(R.id.progressBar2);
         description = (TextView) findViewById(R.id.textView1);
-        	
+        charButton = (Button) findViewById(R.id.charButton);
+        charButton.setText(Current_Player.name + " (level " + Current_Player.level + ")");
         PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
         wakeLock = pm.newWakeLock(PowerManager.FULL_WAKE_LOCK, "DoNotDimScreen");
         
         beatTimingQueue = new LinkedList<Long>();
         
-        Button btn = (Button)findViewById(R.id.button1);
+        Button btn = (Button)findViewById(R.id.charButton);
         btn.setOnClickListener(new OnClickListener() {
         	   @Override
         	   public void onClick(View v) {

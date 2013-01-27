@@ -182,9 +182,6 @@ public class Player {
 		items = new ArrayList<String>();
 		
 		Load("player.dat");
-		
-		for(int i = 0; i < 45; i++)
-			GrantItem();
 	}
 	
 	public void GrantItem()

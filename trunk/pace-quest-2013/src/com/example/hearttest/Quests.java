@@ -3,6 +3,7 @@ package com.example.hearttest;
 import android.app.Activity;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -114,6 +115,10 @@ public abstract class Quests {
 		TextView description = (TextView)((Activity)(HeartRateMonitor.Application_Context)).findViewById(R.id.textView1);
 		description.setText(Quests.GetQuestStory(HeartRateMonitor.Current_Player.current_quest) + "\n\n" 
 				+ Quests.GetQuestDescription(HeartRateMonitor.Current_Player.current_quest, HeartRateMonitor.Current_Player.current_difficulty));
+		
+
+        Button charButton = (Button)((Activity)(HeartRateMonitor.Application_Context)).findViewById(R.id.charButton);
+        charButton.setText(HeartRateMonitor.Current_Player.name + " (level " + HeartRateMonitor.Current_Player.level + ")");
 	}
 	
 	public static float UpdateQuest(qnames id, float difficulty, float current_progress, float seconds)
