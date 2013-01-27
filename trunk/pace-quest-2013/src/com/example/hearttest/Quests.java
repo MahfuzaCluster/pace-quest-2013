@@ -69,7 +69,27 @@ public abstract class Quests {
 		
 		return "";
 	}
-	
+
+	public static String GetQuestStory(qnames id)
+	{
+		String[] agg_stories = {
+				"You sprint towards the enemies, fast and focused, and in one smooth motion you smash the first one in the face with your fist. The next one gets a taste of your weapon and goes down. The rest is a flurry of hits and shouts, the sound of your heart pumping adrenaline through your veins.",
+				"It's them again! You catch a glimpse of a the plume of an imperial soldier's helmet and suddenly there's no time to wait any longer. You run past the corner and take the two guards totally by surprise, they are down for the count before they know it. ",
+				"Your weapons seems like an immovable force as you make your way through enemy lines. Soldiers fall and scream, but you are untouchable, determined to get to the bottom of this, what ever it takes.",
+				"The fire is spreading fast, you think you can even hear the flames roaring behind you. The door outside should be just a few corners away, now run!",
+				"Run, run, run! Warning shouts ring the colony streets, the army is coming in with tanks. The rebellion has finally gotten the government's attention all right!",
+				"Outside the biodome everything seems harder to do. The artificial gravity isn't helping you fit in, and the mask feels like it just doesn't give enough oxygen if you get out of breath. This mission needs to be over and fast."
+				};
+		switch(id)
+		{
+		//Aggressive
+		case UpBeat:			
+		case SuperUp:	
+		case FullOut:
+			return agg_stories[(int) (HeartRateMonitor.Current_Player.xp % agg_stories.length)];	
+		}
+		return "";
+	}
 	public static String GetQuestDescription(qnames id, float difficulty)
 	{
 		switch(id)
@@ -92,7 +112,8 @@ public abstract class Quests {
 		p.current_difficulty = (float) (Math.random() * 0.2f + 0.9f);
 		
 		TextView description = (TextView)((Activity)(HeartRateMonitor.Application_Context)).findViewById(R.id.textView1);
-		description.setText(Quests.GetQuestDescription(HeartRateMonitor.Current_Player.current_quest, HeartRateMonitor.Current_Player.current_difficulty));
+		description.setText(Quests.GetQuestStory(HeartRateMonitor.Current_Player.current_quest) + "\n\n" 
+				+ Quests.GetQuestDescription(HeartRateMonitor.Current_Player.current_quest, HeartRateMonitor.Current_Player.current_difficulty));
 	}
 	
 	public static float UpdateQuest(qnames id, float difficulty, float current_progress, float seconds)
