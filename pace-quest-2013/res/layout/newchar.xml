@@ -21,7 +21,22 @@
             android:id="@+id/textView3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="“The first to climb above the red horizon is Phobos, accompanied by a few dim stars on the evening sky. The streets of the colony are full of people returning home and the occasional soldier of the empire here and there. Soon the soldiers will be no more. As soon a Phobos’ twin, Deimos, rises to shine on the night sky, the resistance will strike. You will strike.” PaceQuest is an exercise game where your character gains experience and progresses through various quests by the beat of your heart. One beat is one point of experience, so get your heart beat up! "
+            android:layout_marginBottom="15dp"
+            android:text="“The first to climb above the red horizon is Phobos, accompanied by a few dim stars on the evening sky. The streets of the colony are full of people returning home and the occasional soldier of the empire here and there. Soon the soldiers will be no more. As soon a Phobos’ twin, Deimos, rises to shine on the night sky, the resistance will strike. You will strike.” "
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Gameplay"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <TextView
+            android:id="@+id/textView5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=" PaceQuest is an exercise game where your character gains experience and progresses through various quests by the beat of your heart. Complete challenges to gain experience, so get your heart beat up!"
             android:textAppearance="?android:attr/textAppearanceSmall" />
 
     </LinearLayout>

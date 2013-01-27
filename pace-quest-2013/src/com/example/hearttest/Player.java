@@ -176,7 +176,7 @@ public class Player {
 		abi_intelligence = 6 + skills;
 		xp = 0;
 		level = 1;
-		avg_rest_pulse = 1;
+		avg_rest_pulse = 70;
 		current_difficulty = 1.f;
 		current_quest = qnames.No_Quest;
 		items = new ArrayList<String>();

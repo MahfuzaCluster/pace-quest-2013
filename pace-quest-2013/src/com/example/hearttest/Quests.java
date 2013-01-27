@@ -96,11 +96,11 @@ public abstract class Quests {
 		switch(id)
 		{
 		case UpBeat:
-			return "Raise beats per minute above " + (HeartRateMonitor.Current_Player.avg_rest_pulse * 1.30 + ((difficulty - 1.f) * 0.5f)) + " for 60 seconds.";
+			return "Raise beats per minute above " + String.format("%.0f",(HeartRateMonitor.Current_Player.avg_rest_pulse * 1.30 + ((difficulty - 1.f) * 0.5f))) + " for 60 seconds.";
 		case SuperUp:
-			return "Raise your beat above " + (HeartRateMonitor.Current_Player.avg_rest_pulse * 1.20 + ((difficulty - 1.f) * 0.5f)) + " for two minutes";		
+			return "Raise your beat above " + String.format("%.0f",(HeartRateMonitor.Current_Player.avg_rest_pulse * 1.20 + ((difficulty - 1.f) * 0.5f))) + " for two minutes";		
 		case FullOut:
-			return "Raise your beat above " + (HeartRateMonitor.Current_Player.avg_rest_pulse * 1.60 + ((difficulty - 1.f) * 0.5f)) + " for 60 seconds";	
+			return "Raise your beat above " + String.format("%.0f",(HeartRateMonitor.Current_Player.avg_rest_pulse * 1.60 + ((difficulty - 1.f) * 0.5f))) + " for 60 seconds";	
 		}
 		
 		return "";		

@@ -79,6 +79,8 @@ public class CharacterActivity extends Activity {
 			 if(i < p.items.size() - 1)
 				 buf.append('\n');
 		 }
+		 if(p.items.size() == 0)
+			 buf.append("None yet");
 		 items.setText(buf.toString());
 	 }
 	 
