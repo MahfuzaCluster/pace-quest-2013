@@ -148,7 +148,7 @@ public class HeartRateMonitor extends Activity {
         	Quests.GetNewQuest();
         qnames q = HeartRateMonitor.Current_Player.current_quest;
         float d = HeartRateMonitor.Current_Player.current_difficulty;
-        String dsc = Quests.GetQuestDescription(q, d);
+        String dsc = Quests.GetQuestStory(q) + "\n\n" + Quests.GetQuestDescription(q, d);
         description.setText(dsc);
     }
 
